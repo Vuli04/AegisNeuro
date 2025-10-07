@@ -1,0 +1,48 @@
+Settings]
+whitelist_ips = 8.8.8.8, 1.1.1.1, 8.8.4.4
+block_duration = 900
+
+[PortScanDetector]
+enabled = true
+time_window = 60
+port_threshold = 20
+
+[MLAnomalyDetector]
+enabled = true
+model_path = Models/nids_model.pkl
+scaler_path = Models/nids_scaler.pkl
+features_path = Models/nids_feature_names.pkl
+
+[CVEClassifier]
+enabled = true
+model_path = Models/cve_classifier_model.pkl
+
+[PhishingDetector]
+enabled = true
+model_path = Models/phishing_model.pkl
+scaler_path = Models/phishing_scaler.pkl
+features_path = Models/phishing_feature_names.pkl
+
+[ScriptAnalyzerML]
+enabled = true
+model_path = Models/script_analyzer_model.pkl
+features_path = Models/script_feature_names.pkl
+
+[LogAnomalyDetector]
+enabled = true
+model_path = Models/log_analyzer_model.pkl
+features_path = Models/log_analyzer_features.pkl
+metadata_path = Models/log_analyzer_metadata.pkl
+
+[DGADetector]
+enabled = true
+model_path = Models/dga_detector_model.pkl
+features_path = Models/dga_detector_features.pkl
+
+[SOARPlaybook]
+enabled = true
+model_path = Models/soar_playbook_model.pkl
+
+[ThreatIntelSummarizer]
+enabled = true
+openai_api_key = sk-YOUR_API_KEY_HERE

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AegisNeuro Security Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- External library for rendering markdown from Threat Intel Summarizer -->
+    <script src="https://cdn.jsdelivr.net/npm/showdown/dist/showdown.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AegisNeuro Security Hub</h1>
+            <nav>
+                <button class="nav-btn active" data-view="dashboard-view">Dashboard</button>
+                <button class="nav-btn" data-view="phishing-view">Phishing Detector</button>
+                <button class="nav-btn" data-view="script-view">Script Analyzer</button>
+                <button class="nav-btn" data-view="cve-view">CVE Classifier</button>
+                <button class="nav-btn" data-view="log-view-tool">Log Analyzer</button>
+                <button class="nav-btn" data-view="dga-view">DGA Detector</button>
+                <button class="nav-btn" data-view="soar-view">SOAR Triage</button>
+                <button class="nav-btn" data-view="intel-view">Threat Intel</button>
+                <button class="nav-btn" data-view="settings-view">Settings</button>
+            </nav>
+        </header>
+
+        <main id="main-content">
+            <!-- Dashboard View -->
+            <div id="dashboard-view" class="view active">
+                <div class="status-bar">
+                    <div id="status-indicator"><span>Status: Connecting...</span></div>
+                    <div id="engines-indicator">Active Engines: <span>N/A</span></div>
+                    <div id="blocked-indicator">Currently Blocked: <span>N/A</span></div>
+                </div>
+                <div class="panel">
+                    <h2>System Status</h2>
+                    <div id="system-status-container">Loading tool statuses...</div>
+                </div>
+                <div class="content-grid">
+                    <div class="panel">
+                        <h2>Blocked IPs</h2>
+                        <ul id="blocked-ips-list">
+                            <li>Loading...</li>
+                        </ul>
+                        <button id="unblock-btn" class="action-btn" disabled>Unblock Selected IP</button>
+                    </div>
+                    <div class="panel">
+                        <h2>Recent Security Alerts</h2>
+                        <div id="alerts-view">Loading alerts...</div>
+                    </div>
+                </div>
+                 <div class="panel">
+                    <h2>Live Event Log</h2>
+                    <pre id="log-view">Loading logs...</pre>
+                </div>
+            </div>
+
+            <!-- Phishing Detector View -->
+            <div id="phishing-view" class="view">
+                <div class="panel">
+                    <h2>AI-Powered Phishing URL Detector</h2>
+                    <p>Enter a URL to check if it's likely to be a phishing attempt.</p>
+                    <input type="text" id="phishing-input" placeholder="e.g., http://secure-login-paypal.com.xyz/update">
+                    <button id="phishing-check-btn" class="action-btn">Check URL</button>
+                </div>
+                <div class="panel">
+                    <h2>Phishing Analysis</h2>
+                    <div id="phishing-results">Results will be shown here.</div>
+                </div>
+            </div>
+
+            <!-- Script Analyzer View -->
+            <div id="script-view" class="view">
+                <div class="panel">
+                    <h2>Malicious Script Analyzer</h2>
+                    <p>Paste script code (JS, PowerShell, Python) to analyze for suspicious patterns.</p>
+                    <textarea id="script-input" placeholder="Paste script code here..."></textarea>
+                    <div class="button-group">
+                        <button id="analyze-static-btn" class="action-btn">Static Analysis</button>
+                        <button id="analyze-ml-btn" class="action-btn">ML Analysis</button>
+                    </div>
+                </div>
+                <div class="panel">
+                    <h2>Analysis Report</h2>
+                    <pre id="analysis-report">Report will be shown here.</pre>
+                </div>
+            </div>
+            
+            <!-- CVE Classifier View -->
+            <div id="cve-view" class="view">
+                <div class="panel">
+                    <h2>AI-Powered CVE Classifier</h2>
+                    <p>Paste a CVE description below to predict its vulnerability type (CWE category).</p>
+                    <textarea id="cve-input" placeholder="e.g., A buffer overflow vulnerability in Example Web Server allows remote attackers to execute arbitrary code..."></textarea>
+                    <button id="cve-classify-btn" class="action-btn">Classify CVE</button>
+                </div>
+                <div class="panel">
+                    <h2>Classification Results</h2>
+                    <div id="cve-results">Results will be shown here.</div>
+                </div>
+            </div>
+
+            <!-- Log Anomaly Detector View -->
+            <div id="log-view-tool" class="view">
+                <div class="panel">
+                    <h2>AI-Powered Log Anomaly Detector</h2>
+                    <p>Enter a single authentication log entry to check for anomalous patterns.</p>
+                    <input type="text" id="log-input" placeholder="e.g., Jan 01 03:00:00 auth.log: user.name login FAILURE from 123.45.67.89">
+                    <button id="log-analyze-btn" class="action-btn">Analyze Log Entry</button>
+                </div>
+                <div class="panel">
+                    <h2>Log Analysis Result</h2>
+                    <div id="log-results">Results will be shown here.</div>
+                </div>
+            </div>
+
+            <!-- DGA Detector View -->
+            <div id="dga-view" class="view">
+                <div class="panel">
+                    <h2>AI-Powered DGA Detector</h2>
+                    <p>Enter a domain name to check if it was likely generated by malware.</p>
+                    <input type="text" id="dga-input" placeholder="e.g., a8f3h9qj3f.com">
+                    <button id="dga-analyze-btn" class="action-btn">Check Domain</button>
+                </div>
+                <div class="panel">
+                    <h2>DGA Analysis Result</h2>
+                    <div id="dga-results">Results will be shown here.</div>
+                </div>
+            </div>
+
+            <!-- SOAR Triage Bot View -->
+            <div id="soar-view" class="view">
+                <div class="panel">
+                    <h2>AI-Powered SOAR Triage Bot</h2>
+                    <p>Input alert details to get an AI-recommended response action.</p>
+                    <div class="soar-form">
+                        <div class="form-group">
+                            <label for="soar-alert-source">Alert Source</label>
+                            <select id="soar-alert-source"><option>NIDS</option><option>Phishing</option><option>Endpoint</option></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="soar-severity">Severity</label>
+                            <select id="soar-severity"><option>Low</option><option>Medium</option><option>High</option><option>Critical</option></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="soar-confidence">Confidence (%)</label>
+                            <input type="number" id="soar-confidence" value="90" min="0" max="100">
+                        </div>
+                        <div class="form-group">
+                            <label for="soar-entity-type">Entity Type</label>
+                            <select id="soar-entity-type"><option>IP</option><option>URL</option><option>File</option><option>User</option></select>
+                        </div>
+                    </div>
+                    <button id="soar-triage-btn" class="action-btn">Get Recommendation</button>
+                </div>
+                <div class="panel">
+                    <h2>Recommended Action</h2>
+                    <div id="soar-results">Results will be shown here.</div>
+                </div>
+            </div>
+
+            <!-- Threat Intel Summarizer View -->
+            <div id="intel-view" class="view">
+                <div class="panel">
+                    <h2>AI-Powered Threat Intel Summarizer</h2>
+                    <p>Paste a long threat intelligence report below to get a concise summary with IOCs and TTPs.</p>
+                    <textarea id="intel-input" placeholder="Paste the full text of a threat report here..."></textarea>
+                    <button id="intel-summarize-btn" class="action-btn">Summarize Report</button>
+                </div>
+                <div class="panel">
+                    <h2>Summary</h2>
+                    <div id="intel-results" class="markdown-body">Summary will be generated here.</div>
+                </div>
+            </div>
+
+            <!-- Settings View -->
+            <div id="settings-view" class="view">
+                <div class="panel">
+                    <h2>General Settings</h2>
+                    <div class="form-group">
+                        <label for="setting-block-duration">Block Duration (seconds)</label>
+                        <input type="number" id="setting-block-duration" placeholder="e.g., 900">
+                    </div>
+                    <div class="form-group">
+                        <label for="setting-whitelist-ips">Whitelisted IPs (comma-separated)</label>
+                        <textarea id="setting-whitelist-ips" placeholder="e.g., 8.8.8.8, 1.1.1.1"></textarea>
+                    </div>
+                </div>
+                <div class="panel">
+                    <h2>Detection Engines & Tools</h2>
+                    <p class="info-text">Enable or disable specific security components.</p>
+                    <div id="engine-settings-container" class="settings-grid">
+                        <!-- Toggles will be dynamically inserted here by script.js -->
+                        <p>Loading settings...</p>
+                    </div>
+                </div>
+                <button id="save-settings-btn" class="action-btn">Save and Apply Settings</button>
+            </div>
+        </main>
+
+        <footer>
+            <p>AegisNeuro Security Hub</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

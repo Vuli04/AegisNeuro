@@ -1,5 +1,3 @@
-# AegisNeuro
-An AI-powered cybersecurity suite for intelligent threat detection, analysis, and automated response.
 # AegisNeuro: An AI-Powered Cybersecurity Suite
 
 ![Python](https://img.shields.io/badge/python-3.9+-blue.svg)
@@ -109,7 +107,6 @@ The system is built around a central Python service (`aegis_ips_service.py`) tha
     ```bash
     pip install -r requirements.txt
     ```
-    *(Note: You will need to create a `requirements.txt` file. You can do this by running `pip freeze > requirements.txt` in your activated virtual environment after installing all packages.)*
 
 4.  **Set up the configuration file:**
     Copy the example configuration file.
@@ -199,4 +196,3 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Disclaimer
 
 AegisNeuro is a portfolio project created for demonstration and educational purposes. While it is a fully functional application, it has not been hardened for production environments. Do not deploy in a live, critical environment without extensive further testing and security hardening.
-
